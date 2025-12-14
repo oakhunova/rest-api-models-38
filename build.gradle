@@ -35,9 +35,15 @@ dependencies {
     )
 }
 
+task testRestApi(type: Test) {
+    useJUnitPlatform {
+        includeTags("restapi")
+    }
+    systemProperties(System.getProperties())
+}
+
 tasks.withType(Test) {
     useJUnitPlatform()
-
     testLogging {
         lifecycle {
             events "started", "skipped", "failed", "standard_error", "standard_out"
