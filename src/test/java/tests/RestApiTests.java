@@ -1,22 +1,16 @@
 package tests;
 
 import models.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static specs.ResponseSpec.responseSpec;
 import static specs.RestApiSpec.*;
 
 @Tag("restapi")
-public class RestApiTests {
-    private static final TestBase testBase = new TestBase();
-
-    @BeforeEach
-    public void setUp() {
-        testBase.setupEnvironment();
-    }
+public class RestApiTests extends TestBase {
 
     @Test
     void checkTotalUsers() {
@@ -26,7 +20,7 @@ public class RestApiTests {
                 .queryParam("page", "2")
                 .get("/users")
                 .then()
-                .spec(response200Spec)
+                .spec(responseSpec(200))
                 .extract()
                 .as(TotalUsers.class));
         step("Check response", () ->
@@ -44,7 +38,7 @@ public class RestApiTests {
                 .when()
                 .post("/users")
                 .then()
-                .spec(response201Spec)
+                .spec(responseSpec(201))
                 .extract()
                 .as(CreateUserResponse.class));
         step("Check response #2", () -> {
@@ -64,7 +58,7 @@ public class RestApiTests {
                 .when()
                 .put("/users/2")
                 .then()
-                .spec(response200Spec)
+                .spec(responseSpec(200))
                 .extract()
                 .as(UpdateUserResponse.class));
         step("Check response #3", () -> {
@@ -80,7 +74,7 @@ public class RestApiTests {
                 .when()
                 .delete("/users/2")
                 .then()
-                .spec(response204Spec));
+                .spec(responseSpec(204)));
     }
 
     @Test
@@ -93,7 +87,7 @@ public class RestApiTests {
                 .when()
                 .post("/register")
                 .then()
-                .spec(response400Spec)
+                .spec(responseSpec(400))
                 .extract()
                 .as(UnsuccessfulRegisterResponse.class));
         step("Check response #5", () ->
