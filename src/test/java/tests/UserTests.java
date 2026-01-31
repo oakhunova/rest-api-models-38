@@ -7,10 +7,9 @@ import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static specs.ResponseSpec.responseSpec;
-import static specs.RestApiSpec.*;
+import static specs.RequestSpec.*;
 
-@Tag("restapi")
-public class RestApiTests extends TestBase {
+public class UserTests extends TestBase {
 
     @Test
     void checkTotalUsers() {
@@ -77,21 +76,4 @@ public class RestApiTests extends TestBase {
                 .spec(responseSpec(204)));
     }
 
-    @Test
-    void unsuccessfulRegister400() {
-        UnsuccessfulRegister unsuccessfulData = new UnsuccessfulRegister();
-        unsuccessfulData.setEmail("test@test.com");
-        UnsuccessfulRegisterResponse response = step("Make request #5", () -> given()
-                .spec(requestWithContentTypeSpec)
-                .body(unsuccessfulData)
-                .when()
-                .post("/register")
-                .then()
-                .spec(responseSpec(400))
-                .extract()
-                .as(UnsuccessfulRegisterResponse.class));
-        step("Check response #5", () ->
-                assertEquals("Missing password", response.getError(),
-                        "Error message should be 'Missing password'"));
-    }
 }

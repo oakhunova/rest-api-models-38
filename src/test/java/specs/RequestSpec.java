@@ -5,7 +5,7 @@ import static helpers.CustomAllureListener.withCustomTemplates;
 import static io.restassured.RestAssured.with;
 import static io.restassured.http.ContentType.JSON;
 
-public class RestApiSpec {
+public class RequestSpec {
     public static RequestSpecification requestWithContentTypeSpec = with()
             .filter(withCustomTemplates())
             .log().uri()

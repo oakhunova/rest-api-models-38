@@ -35,12 +35,6 @@ dependencies {
     )
 }
 
-task testRestApi(type: Test) {
-    useJUnitPlatform {
-        includeTags("restapi")
-    }
-    systemProperties(System.getProperties())
-}
 
 tasks.withType(Test) {
     useJUnitPlatform()
