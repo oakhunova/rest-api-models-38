@@ -1,13 +1,26 @@
 package tests;
 
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
-
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.BeforeAll;
+import static helpers.CustomAllureListener.withCustomTemplates;
 
 public class TestBase {
-    @BeforeEach
-    public void setupEnvironment() {
+
+    public static RequestSpecification baseRequestSpec;
+    static String apiKey;
+
+    @BeforeAll
+    public static void setupEnvironment() {
         RestAssured.baseURI = "https://reqres.in";
-        RestAssured.basePath="/api";
+        RestAssured.basePath = "/api";
+        apiKey = System.getProperty("xApiKey");
+        baseRequestSpec = new RequestSpecBuilder()
+                .addFilter(withCustomTemplates())
+                .addHeader("x-api-key", apiKey)
+                .log(LogDetail.URI)
+                .build();
     }
 }
