@@ -33,12 +33,12 @@
 
 ### Команда для запуска из терминала
 ```
-gradle clean test -DxApiKey=<x-api-key>
+gradle clean test -DxApiKey="x-api-key"
 ```
 ### Удаленный запуск в Jenkins
 ```
 clean test
--DxApiKey=${x-api-key}
+-DxApiKey=x-api-key
 ```
 
 <a id="jenkins-build"></a>

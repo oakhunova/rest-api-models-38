@@ -16,7 +16,7 @@ public class TestBase {
     public static void setupEnvironment() {
         RestAssured.baseURI = "https://reqres.in";
         RestAssured.basePath = "/api";
-        apiKey = System.getProperty("xApiKey");
+        apiKey = System.getProperty("X_API_KEY");
         baseRequestSpec = new RequestSpecBuilder()
                 .addFilter(withCustomTemplates())
                 .addHeader("x-api-key", apiKey)
